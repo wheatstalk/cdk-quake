@@ -1,5 +1,5 @@
 {
-  "name": "cdk-quake2",
+  "name": "@wheatstalk/cdk-quake",
   "scripts": {
     "build": "npx projen build",
     "bundle": "npx projen bundle",
@@ -11,6 +11,19 @@
     "diff": "npx projen diff",
     "eject": "npx projen eject",
     "eslint": "npx projen eslint",
+    "integ:main:assert": "npx projen integ:main:assert",
+    "integ:main:deploy": "npx projen integ:main:deploy",
+    "integ:main:destroy": "npx projen integ:main:destroy",
+    "integ:main:snapshot": "npx projen integ:main:snapshot",
+    "integ:main:test": "npx projen integ:main:test",
+    "integ:main:watch": "npx projen integ:main:watch",
+    "integ:quake-task:assert": "npx projen integ:quake-task:assert",
+    "integ:quake-task:deploy": "npx projen integ:quake-task:deploy",
+    "integ:quake-task:destroy": "npx projen integ:quake-task:destroy",
+    "integ:quake-task:snapshot": "npx projen integ:quake-task:snapshot",
+    "integ:quake-task:test": "npx projen integ:quake-task:test",
+    "integ:quake-task:watch": "npx projen integ:quake-task:watch",
+    "integ:snapshot-all": "npx projen integ:snapshot-all",
     "package": "npx projen package",
     "post-compile": "npx projen post-compile",
     "post-upgrade": "npx projen post-upgrade",
@@ -26,10 +39,14 @@
     "projen": "npx projen"
   },
   "devDependencies": {
+    "@types/aws-lambda": "^8.10.93",
+    "@types/express": "^4.17.13",
     "@types/jest": "^27.4.1",
+    "@types/morgan": "^1.9.3",
     "@types/node": "^12",
     "@typescript-eslint/eslint-plugin": "^5",
     "@typescript-eslint/parser": "^5",
+    "@wheatstalk/aws-cdk-exec": "^0.1.22",
     "aws-cdk": "^2.1.0",
     "esbuild": "^0.14.25",
     "eslint": "^8",
@@ -46,8 +63,14 @@
     "typescript": "^4.6.2"
   },
   "dependencies": {
+    "@vendia/serverless-express": "^4.5.4",
     "aws-cdk-lib": "^2.1.0",
-    "constructs": "^10.0.5"
+    "aws-sdk": "^2.1087.0",
+    "body-parser": "^1.19.2",
+    "constructs": "^10.0.5",
+    "express": "^4.17.3",
+    "morgan": "^1.10.0",
+    "source-map-support": "^0.5.21"
   },
   "license": "Apache-2.0",
   "version": "0.0.0",

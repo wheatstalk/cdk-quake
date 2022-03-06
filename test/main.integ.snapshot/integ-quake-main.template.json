@@ -1,0 +1,1069 @@
+{
+  "Resources": {
+    "QuakeInfrastructureVpc05179EF3": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "CidrBlock": "10.0.0.0/16",
+        "EnableDnsHostnames": true,
+        "EnableDnsSupport": true,
+        "InstanceTenancy": "default",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "integ-quake-main/QuakeInfrastructure/Vpc"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "integ-quake-main/QuakeInfrastructure/Vpc/Resource"
+      }
+    },
+    "QuakeInfrastructureVpcgamesSubnet1Subnet22771A96": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.0.0/20",
+        "VpcId": {
+          "Ref": "QuakeInfrastructureVpc05179EF3"
+        },
+        "AvailabilityZone": {
+          "Fn::Select": [
+            0,
+            {
+              "Fn::GetAZs": ""
+            }
+          ]
+        },
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "games"
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public"
+          },
+          {
+            "Key": "Name",
+            "Value": "integ-quake-main/QuakeInfrastructure/Vpc/gamesSubnet1"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "integ-quake-main/QuakeInfrastructure/Vpc/gamesSubnet1/Subnet"
+      }
+    },
+    "QuakeInfrastructureVpcgamesSubnet1RouteTable26F4624C": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "QuakeInfrastructureVpc05179EF3"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "integ-quake-main/QuakeInfrastructure/Vpc/gamesSubnet1"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "integ-quake-main/QuakeInfrastructure/Vpc/gamesSubnet1/RouteTable"
+      }
+    },
+    "QuakeInfrastructureVpcgamesSubnet1RouteTableAssociationDF4A30F3": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "QuakeInfrastructureVpcgamesSubnet1RouteTable26F4624C"
+        },
+        "SubnetId": {
+          "Ref": "QuakeInfrastructureVpcgamesSubnet1Subnet22771A96"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "integ-quake-main/QuakeInfrastructure/Vpc/gamesSubnet1/RouteTableAssociation"
+      }
+    },
+    "QuakeInfrastructureVpcgamesSubnet1DefaultRoute59835A4E": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "QuakeInfrastructureVpcgamesSubnet1RouteTable26F4624C"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "QuakeInfrastructureVpcIGWCD6BBC49"
+        }
+      },
+      "DependsOn": [
+        "QuakeInfrastructureVpcVPCGW2FCD82FF"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "integ-quake-main/QuakeInfrastructure/Vpc/gamesSubnet1/DefaultRoute"
+      }
+    },
+    "QuakeInfrastructureVpcgamesSubnet2SubnetD34FF4AC": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.16.0/20",
+        "VpcId": {
+          "Ref": "QuakeInfrastructureVpc05179EF3"
+        },
+        "AvailabilityZone": {
+          "Fn::Select": [
+            1,
+            {
+              "Fn::GetAZs": ""
+            }
+          ]
+        },
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "games"
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public"
+          },
+          {
+            "Key": "Name",
+            "Value": "integ-quake-main/QuakeInfrastructure/Vpc/gamesSubnet2"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "integ-quake-main/QuakeInfrastructure/Vpc/gamesSubnet2/Subnet"
+      }
+    },
+    "QuakeInfrastructureVpcgamesSubnet2RouteTable5875B88A": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "QuakeInfrastructureVpc05179EF3"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "integ-quake-main/QuakeInfrastructure/Vpc/gamesSubnet2"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "integ-quake-main/QuakeInfrastructure/Vpc/gamesSubnet2/RouteTable"
+      }
+    },
+    "QuakeInfrastructureVpcgamesSubnet2RouteTableAssociationF4D20CED": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "QuakeInfrastructureVpcgamesSubnet2RouteTable5875B88A"
+        },
+        "SubnetId": {
+          "Ref": "QuakeInfrastructureVpcgamesSubnet2SubnetD34FF4AC"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "integ-quake-main/QuakeInfrastructure/Vpc/gamesSubnet2/RouteTableAssociation"
+      }
+    },
+    "QuakeInfrastructureVpcgamesSubnet2DefaultRoute13FB52BF": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "QuakeInfrastructureVpcgamesSubnet2RouteTable5875B88A"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "QuakeInfrastructureVpcIGWCD6BBC49"
+        }
+      },
+      "DependsOn": [
+        "QuakeInfrastructureVpcVPCGW2FCD82FF"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "integ-quake-main/QuakeInfrastructure/Vpc/gamesSubnet2/DefaultRoute"
+      }
+    },
+    "QuakeInfrastructureVpcIGWCD6BBC49": {
+      "Type": "AWS::EC2::InternetGateway",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "integ-quake-main/QuakeInfrastructure/Vpc"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "integ-quake-main/QuakeInfrastructure/Vpc/IGW"
+      }
+    },
+    "QuakeInfrastructureVpcVPCGW2FCD82FF": {
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+      "Properties": {
+        "VpcId": {
+          "Ref": "QuakeInfrastructureVpc05179EF3"
+        },
+        "InternetGatewayId": {
+          "Ref": "QuakeInfrastructureVpcIGWCD6BBC49"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "integ-quake-main/QuakeInfrastructure/Vpc/VPCGW"
+      }
+    },
+    "QuakeInfrastructureQuakeSecurityGroup3A50F248": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "integ-quake-main/QuakeInfrastructure/QuakeSecurityGroup",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1"
+          }
+        ],
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "from 0.0.0.0/0:ALL PORTS",
+            "FromPort": 0,
+            "IpProtocol": "tcp",
+            "ToPort": 65535
+          }
+        ],
+        "VpcId": {
+          "Ref": "QuakeInfrastructureVpc05179EF3"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "integ-quake-main/QuakeInfrastructure/QuakeSecurityGroup/Resource"
+      }
+    },
+    "QuakeInfrastructureClusterF79FA323": {
+      "Type": "AWS::ECS::Cluster",
+      "Metadata": {
+        "aws:cdk:path": "integ-quake-main/QuakeInfrastructure/Cluster/Resource"
+      }
+    },
+    "QuakeInfrastructureClusterF7EA820F": {
+      "Type": "AWS::ECS::ClusterCapacityProviderAssociations",
+      "Properties": {
+        "CapacityProviders": [
+          "FARGATE",
+          "FARGATE_SPOT"
+        ],
+        "Cluster": {
+          "Ref": "QuakeInfrastructureClusterF79FA323"
+        },
+        "DefaultCapacityProviderStrategy": []
+      },
+      "Metadata": {
+        "aws:cdk:path": "integ-quake-main/QuakeInfrastructure/Cluster/Cluster"
+      }
+    },
+    "QuakeDataTable9B102C1F": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "KeySchema": [
+          {
+            "AttributeName": "PK",
+            "KeyType": "HASH"
+          },
+          {
+            "AttributeName": "SK",
+            "KeyType": "RANGE"
+          }
+        ],
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "PK",
+            "AttributeType": "S"
+          },
+          {
+            "AttributeName": "SK",
+            "AttributeType": "S"
+          }
+        ],
+        "BillingMode": "PAY_PER_REQUEST",
+        "StreamSpecification": {
+          "StreamViewType": "NEW_AND_OLD_IMAGES"
+        }
+      },
+      "UpdateReplacePolicy": "Delete",
+      "DeletionPolicy": "Delete",
+      "Metadata": {
+        "aws:cdk:path": "integ-quake-main/QuakeData/Table/Resource"
+      }
+    },
+    "QuakeApiQuakeTaskDefinitionTaskRole7F08D7B6": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ecs-tasks.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "integ-quake-main/QuakeApi/QuakeTaskDefinition/TaskRole/Resource"
+      }
+    },
+    "QuakeApiQuakeTaskDefinition786D36D9": {
+      "Type": "AWS::ECS::TaskDefinition",
+      "Properties": {
+        "ContainerDefinitions": [
+          {
+            "Environment": [
+              {
+                "Name": "HTTP_PORT",
+                "Value": "80"
+              }
+            ],
+            "Essential": true,
+            "Image": "wheatstalk/quakejs-docker",
+            "LogConfiguration": {
+              "LogDriver": "awslogs",
+              "Options": {
+                "awslogs-group": {
+                  "Ref": "QuakeApiQuakeTaskDefinitionquakeLogGroup91DB604F"
+                },
+                "awslogs-stream-prefix": "task",
+                "awslogs-region": {
+                  "Ref": "AWS::Region"
+                }
+              }
+            },
+            "Name": "quake",
+            "Ulimits": [
+              {
+                "HardLimit": 8192,
+                "Name": "nofile",
+                "SoftLimit": 8192
+              }
+            ]
+          }
+        ],
+        "Cpu": "512",
+        "ExecutionRoleArn": {
+          "Fn::GetAtt": [
+            "QuakeApiQuakeTaskDefinitionExecutionRole1E13F3CF",
+            "Arn"
+          ]
+        },
+        "Family": "integquakemainQuakeApiQuakeTaskDefinition75C51D1F",
+        "Memory": "1024",
+        "NetworkMode": "awsvpc",
+        "RequiresCompatibilities": [
+          "FARGATE"
+        ],
+        "TaskRoleArn": {
+          "Fn::GetAtt": [
+            "QuakeApiQuakeTaskDefinitionTaskRole7F08D7B6",
+            "Arn"
+          ]
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "integ-quake-main/QuakeApi/QuakeTaskDefinition/Resource"
+      }
+    },
+    "QuakeApiQuakeTaskDefinitionquakeLogGroup91DB604F": {
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
+      "DeletionPolicy": "Retain",
+      "Metadata": {
+        "aws:cdk:path": "integ-quake-main/QuakeApi/QuakeTaskDefinition/quake/LogGroup/Resource"
+      }
+    },
+    "QuakeApiQuakeTaskDefinitionExecutionRole1E13F3CF": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ecs-tasks.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "integ-quake-main/QuakeApi/QuakeTaskDefinition/ExecutionRole/Resource"
+      }
+    },
+    "QuakeApiQuakeTaskDefinitionExecutionRoleDefaultPolicy6D67442E": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "QuakeApiQuakeTaskDefinitionquakeLogGroup91DB604F",
+                  "Arn"
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "QuakeApiQuakeTaskDefinitionExecutionRoleDefaultPolicy6D67442E",
+        "Roles": [
+          {
+            "Ref": "QuakeApiQuakeTaskDefinitionExecutionRole1E13F3CF"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "integ-quake-main/QuakeApi/QuakeTaskDefinition/ExecutionRole/DefaultPolicy/Resource"
+      }
+    },
+    "QuakeApiHandlerServiceRole2B31CC15": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+              ]
+            ]
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "integ-quake-main/QuakeApi/Handler/ServiceRole/Resource"
+      }
+    },
+    "QuakeApiHandlerServiceRoleDefaultPolicyDDDA123A": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords"
+              ],
+              "Effect": "Allow",
+              "Resource": "*"
+            },
+            {
+              "Action": [
+                "dynamodb:BatchGetItem",
+                "dynamodb:GetRecords",
+                "dynamodb:GetShardIterator",
+                "dynamodb:Query",
+                "dynamodb:GetItem",
+                "dynamodb:Scan",
+                "dynamodb:ConditionCheckItem",
+                "dynamodb:BatchWriteItem",
+                "dynamodb:PutItem",
+                "dynamodb:UpdateItem",
+                "dynamodb:DeleteItem",
+                "dynamodb:DescribeTable"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "QuakeDataTable9B102C1F",
+                    "Arn"
+                  ]
+                },
+                {
+                  "Ref": "AWS::NoValue"
+                }
+              ]
+            },
+            {
+              "Action": "iam:PassRole",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "QuakeApiQuakeTaskDefinitionExecutionRole1E13F3CF",
+                  "Arn"
+                ]
+              }
+            },
+            {
+              "Action": "iam:PassRole",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "QuakeApiQuakeTaskDefinitionTaskRole7F08D7B6",
+                  "Arn"
+                ]
+              }
+            },
+            {
+              "Action": [
+                "ecs:*",
+                "ec2:DescribeNetworkInterfaces",
+                "cloudformation:*"
+              ],
+              "Effect": "Allow",
+              "Resource": "*"
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "QuakeApiHandlerServiceRoleDefaultPolicyDDDA123A",
+        "Roles": [
+          {
+            "Ref": "QuakeApiHandlerServiceRole2B31CC15"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "integ-quake-main/QuakeApi/Handler/ServiceRole/DefaultPolicy/Resource"
+      }
+    },
+    "QuakeApiHandler6D3C6C8A": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+          },
+          "S3Key": "1470a928d0925dd5e473928c52cdd9fddc5f0f898c6fcae646774b62419db4f9.zip"
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "QuakeApiHandlerServiceRole2B31CC15",
+            "Arn"
+          ]
+        },
+        "Environment": {
+          "Variables": {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "QUAKE_TABLE": {
+              "Ref": "QuakeDataTable9B102C1F"
+            },
+            "QUAKE_TASK_CLUSTER": {
+              "Fn::GetAtt": [
+                "QuakeInfrastructureClusterF79FA323",
+                "Arn"
+              ]
+            },
+            "QUAKE_TASK_DEFINITION": {
+              "Ref": "QuakeApiQuakeTaskDefinition786D36D9"
+            },
+            "QUAKE_TASK_SECURITY_GROUPS": {
+              "Fn::Join": [
+                "",
+                [
+                  "[\"",
+                  {
+                    "Fn::GetAtt": [
+                      "QuakeInfrastructureQuakeSecurityGroup3A50F248",
+                      "GroupId"
+                    ]
+                  },
+                  "\"]"
+                ]
+              ]
+            },
+            "QUAKE_TASK_SUBNETS": {
+              "Fn::Join": [
+                "",
+                [
+                  "[\"",
+                  {
+                    "Ref": "QuakeInfrastructureVpcgamesSubnet1Subnet22771A96"
+                  },
+                  "\",\"",
+                  {
+                    "Ref": "QuakeInfrastructureVpcgamesSubnet2SubnetD34FF4AC"
+                  },
+                  "\"]"
+                ]
+              ]
+            }
+          }
+        },
+        "Handler": "index.handler",
+        "Runtime": "nodejs14.x",
+        "TracingConfig": {
+          "Mode": "Active"
+        }
+      },
+      "DependsOn": [
+        "QuakeApiHandlerServiceRoleDefaultPolicyDDDA123A",
+        "QuakeApiHandlerServiceRole2B31CC15"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "integ-quake-main/QuakeApi/Handler/Resource"
+      }
+    },
+    "QuakeApiRestApi46C57C81": {
+      "Type": "AWS::ApiGateway::RestApi",
+      "Properties": {
+        "Name": "RestApi"
+      },
+      "Metadata": {
+        "aws:cdk:path": "integ-quake-main/QuakeApi/RestApi/Resource"
+      }
+    },
+    "QuakeApiRestApiCloudWatchRole3A586332": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "apigateway.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"
+              ]
+            ]
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "integ-quake-main/QuakeApi/RestApi/CloudWatchRole/Resource"
+      }
+    },
+    "QuakeApiRestApiAccountBF8717BD": {
+      "Type": "AWS::ApiGateway::Account",
+      "Properties": {
+        "CloudWatchRoleArn": {
+          "Fn::GetAtt": [
+            "QuakeApiRestApiCloudWatchRole3A586332",
+            "Arn"
+          ]
+        }
+      },
+      "DependsOn": [
+        "QuakeApiRestApi46C57C81"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "integ-quake-main/QuakeApi/RestApi/Account"
+      }
+    },
+    "QuakeApiRestApiDeployment12D6D6B739e9a2a652879ed6665960fa39473b6f": {
+      "Type": "AWS::ApiGateway::Deployment",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "QuakeApiRestApi46C57C81"
+        },
+        "Description": "Automatically created by the RestApi construct"
+      },
+      "DependsOn": [
+        "QuakeApiRestApiproxyANYAA61087D",
+        "QuakeApiRestApiproxy3928CBB2",
+        "QuakeApiRestApiANY691FAAB9"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "integ-quake-main/QuakeApi/RestApi/Deployment/Resource"
+      }
+    },
+    "QuakeApiRestApiDeploymentStageprod088E38EC": {
+      "Type": "AWS::ApiGateway::Stage",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "QuakeApiRestApi46C57C81"
+        },
+        "DeploymentId": {
+          "Ref": "QuakeApiRestApiDeployment12D6D6B739e9a2a652879ed6665960fa39473b6f"
+        },
+        "StageName": "prod",
+        "TracingEnabled": true
+      },
+      "DependsOn": [
+        "QuakeApiRestApiAccountBF8717BD"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "integ-quake-main/QuakeApi/RestApi/DeploymentStage.prod/Resource"
+      }
+    },
+    "QuakeApiRestApiproxy3928CBB2": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Fn::GetAtt": [
+            "QuakeApiRestApi46C57C81",
+            "RootResourceId"
+          ]
+        },
+        "PathPart": "{proxy+}",
+        "RestApiId": {
+          "Ref": "QuakeApiRestApi46C57C81"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "integ-quake-main/QuakeApi/RestApi/Default/{proxy+}/Resource"
+      }
+    },
+    "QuakeApiRestApiproxyANYApiPermissionintegquakemainQuakeApiRestApi54A8B15BANYproxyCC673306": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "QuakeApiHandler6D3C6C8A",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "QuakeApiRestApi46C57C81"
+              },
+              "/",
+              {
+                "Ref": "QuakeApiRestApiDeploymentStageprod088E38EC"
+              },
+              "/*/*"
+            ]
+          ]
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "integ-quake-main/QuakeApi/RestApi/Default/{proxy+}/ANY/ApiPermission.integquakemainQuakeApiRestApi54A8B15B.ANY..{proxy+}"
+      }
+    },
+    "QuakeApiRestApiproxyANYApiPermissionTestintegquakemainQuakeApiRestApi54A8B15BANYproxy1EF9254D": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "QuakeApiHandler6D3C6C8A",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "QuakeApiRestApi46C57C81"
+              },
+              "/test-invoke-stage/*/*"
+            ]
+          ]
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "integ-quake-main/QuakeApi/RestApi/Default/{proxy+}/ANY/ApiPermission.Test.integquakemainQuakeApiRestApi54A8B15B.ANY..{proxy+}"
+      }
+    },
+    "QuakeApiRestApiproxyANYAA61087D": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "ANY",
+        "ResourceId": {
+          "Ref": "QuakeApiRestApiproxy3928CBB2"
+        },
+        "RestApiId": {
+          "Ref": "QuakeApiRestApi46C57C81"
+        },
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "QuakeApiHandler6D3C6C8A",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "integ-quake-main/QuakeApi/RestApi/Default/{proxy+}/ANY/Resource"
+      }
+    },
+    "QuakeApiRestApiANYApiPermissionintegquakemainQuakeApiRestApi54A8B15BANY44C3C8CE": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "QuakeApiHandler6D3C6C8A",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "QuakeApiRestApi46C57C81"
+              },
+              "/",
+              {
+                "Ref": "QuakeApiRestApiDeploymentStageprod088E38EC"
+              },
+              "/*/"
+            ]
+          ]
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "integ-quake-main/QuakeApi/RestApi/Default/ANY/ApiPermission.integquakemainQuakeApiRestApi54A8B15B.ANY.."
+      }
+    },
+    "QuakeApiRestApiANYApiPermissionTestintegquakemainQuakeApiRestApi54A8B15BANYB31A9DD8": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "QuakeApiHandler6D3C6C8A",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "QuakeApiRestApi46C57C81"
+              },
+              "/test-invoke-stage/*/"
+            ]
+          ]
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "integ-quake-main/QuakeApi/RestApi/Default/ANY/ApiPermission.Test.integquakemainQuakeApiRestApi54A8B15B.ANY.."
+      }
+    },
+    "QuakeApiRestApiANY691FAAB9": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "ANY",
+        "ResourceId": {
+          "Fn::GetAtt": [
+            "QuakeApiRestApi46C57C81",
+            "RootResourceId"
+          ]
+        },
+        "RestApiId": {
+          "Ref": "QuakeApiRestApi46C57C81"
+        },
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "QuakeApiHandler6D3C6C8A",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "integ-quake-main/QuakeApi/RestApi/Default/ANY/Resource"
+      }
+    }
+  },
+  "Outputs": {
+    "QuakeApiRestApiEndpoint174740AD": {
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            "https://",
+            {
+              "Ref": "QuakeApiRestApi46C57C81"
+            },
+            ".execute-api.",
+            {
+              "Ref": "AWS::Region"
+            },
+            ".",
+            {
+              "Ref": "AWS::URLSuffix"
+            },
+            "/",
+            {
+              "Ref": "QuakeApiRestApiDeploymentStageprod088E38EC"
+            },
+            "/"
+          ]
+        ]
+      }
+    }
+  },
+  "Parameters": {
+    "BootstrapVersion": {
+      "Type": "AWS::SSM::Parameter::Value<String>",
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+    }
+  },
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Not": [
+              {
+                "Fn::Contains": [
+                  [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5"
+                  ],
+                  {
+                    "Ref": "BootstrapVersion"
+                  }
+                ]
+              }
+            ]
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+        }
+      ]
+    }
+  }
+}

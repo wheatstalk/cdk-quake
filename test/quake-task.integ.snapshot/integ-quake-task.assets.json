@@ -1,0 +1,19 @@
+{
+  "version": "16.0.0",
+  "files": {
+    "eaa04efe8af0ef7eb862a980dc168acccdfd5adaffc479169373cd10503422b5": {
+      "source": {
+        "path": "integ-quake-task.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "current_account-current_region": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+          "objectKey": "eaa04efe8af0ef7eb862a980dc168acccdfd5adaffc479169373cd10503422b5.json",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}
