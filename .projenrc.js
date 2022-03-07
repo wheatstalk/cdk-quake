@@ -7,10 +7,10 @@ const project = new awscdk.AwsCdkTypeScriptApp({
 
   deps: [
     '@vendia/serverless-express',
+    'aws-sdk',
+    'body-parser',
     'express',
     'morgan',
-    'body-parser',
-    'aws-sdk',
     'source-map-support',
   ],
 

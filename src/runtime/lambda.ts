@@ -1,5 +1,6 @@
 import 'source-map-support/register';
 import serverlessExpress from '@vendia/serverless-express';
+import type * as lambda from 'aws-lambda';
 import bodyParser from 'body-parser';
 import express from 'express';
 import morgan from 'morgan';
@@ -42,6 +43,4 @@ app.delete('/quake/:name', async (req, res) => {
   });
 });
 
-export const handler = <any>serverlessExpress({
-  app,
-});
+export const handler: lambda.APIGatewayProxyHandler = serverlessExpress({ app });

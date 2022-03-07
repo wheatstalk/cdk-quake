@@ -50,18 +50,19 @@ export class QuakeTasks {
     return {
       requestToken: res.ProgressEvent?.RequestToken,
       identifier: res.ProgressEvent?.Identifier,
+      status: 'PENDING',
     };
   }
 
   async describe(info: RunQuakeTaskInfo): Promise<DescribeQuakeTaskResult> {
     console.log('Describing', info);
 
-    const identifier = await this.findIdentifier(info);
-    const task = identifier ? await this.findTaskByIdentifier(identifier) : undefined;
+    const current = await this.findQuakeTaskInfo(info);
+    const task = current.identifier ? await this.findTaskByIdentifier(current.identifier) : undefined;
     const publicIp = task && task.taskArn ? await this.findTaskPublicIp(task) : undefined;
 
     return {
-      status: task?.lastStatus ?? 'UNKNOWN',
+      status: current.status,
       publicIp,
     };
   }
@@ -117,40 +118,58 @@ export class QuakeTasks {
     return nic.Association?.PublicIp;
   }
 
-  private async findIdentifier(info_: RunQuakeTaskInfo) {
-    if (info_.identifier) {
-      return info_.identifier;
-    }
-
-    if (!info_.requestToken) {
-      return undefined;
+  private async findQuakeTaskInfo(info: RunQuakeTaskInfo): Promise<RunQuakeTaskInfo> {
+    if (info.identifier) {
+      return info;
     }
 
     const getResourceRequest = await this.cloudControlSdk.getResourceRequestStatus({
-      RequestToken: info_.requestToken,
+      RequestToken: info.requestToken,
     }).promise();
 
-    return getResourceRequest.ProgressEvent?.Identifier;
+    const progressEvent = getResourceRequest.ProgressEvent;
+    if (!progressEvent) {
+      return info;
+    }
+
+    const operationStatus = progressEvent.OperationStatus;
+
+    switch (operationStatus) {
+      case 'SUCCESS':
+      case 'FAILED':
+        return {
+          requestToken: info.requestToken,
+          identifier: getResourceRequest.ProgressEvent?.Identifier,
+          status: operationStatus,
+        };
+
+      default:
+        return {
+          ...info,
+          status: operationStatus ?? 'UNKNOWN',
+        };
+    }
   }
 
   async stop(info: RunQuakeTaskInfo) {
-    const identifier = info.identifier
-      ? info.identifier
-      : await this.findIdentifier(info);
+    const updatedInfo = info.identifier
+      ? info
+      : await this.findQuakeTaskInfo(info);
 
-    if (!identifier) {
+    if (!updatedInfo.identifier) {
       throw new Error('Could not find identifier');
     }
 
     await this.cloudControlSdk.deleteResource({
       TypeName: AWS_ECS_SERVICE,
-      Identifier: identifier,
+      Identifier: updatedInfo.identifier,
     }).promise();
   }
 }
 
 export interface RunQuakeTaskInfo {
   readonly requestToken: string;
+  readonly status: string;
   readonly identifier?: string;
 }
 

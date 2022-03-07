@@ -53,6 +53,7 @@ export class QuakeService {
     });
 
     return {
+      name,
       status: quakeServer.status,
       url,
     };

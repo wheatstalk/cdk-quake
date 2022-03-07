@@ -1,6 +1,6 @@
 import * as path from 'path';
 import { LambdaRestApi } from 'aws-cdk-lib/aws-apigateway';
-import * as aws_iam from 'aws-cdk-lib/aws-iam';
+import { Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam';
 import { Tracing } from 'aws-cdk-lib/aws-lambda';
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
 import { Construct } from 'constructs';
@@ -59,6 +59,9 @@ export class RuntimeFunction extends NodejsFunction {
       entry: path.join('src/runtime/lambda.ts'),
       handler: props.handler,
       tracing: Tracing.ACTIVE,
+      bundling: {
+        sourceMap: true,
+      },
     });
 
     const { quakeData, quakeInfrastructure, quakeTaskDefinition } = props;
@@ -76,8 +79,8 @@ export class RuntimeFunction extends NodejsFunction {
     quakeTaskDefinition.taskRole.grantPassRole(this.grantPrincipal);
 
     this.addToRolePolicy(
-      new aws_iam.PolicyStatement({
-        effect: aws_iam.Effect.ALLOW,
+      new PolicyStatement({
+        effect: Effect.ALLOW,
         resources: ['*'],
         actions: [
           'ecs:*',
