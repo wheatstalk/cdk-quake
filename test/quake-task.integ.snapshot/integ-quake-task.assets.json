@@ -1,7 +1,7 @@
 {
-  "version": "16.0.0",
+  "version": "18.0.0",
   "files": {
-    "eaa04efe8af0ef7eb862a980dc168acccdfd5adaffc479169373cd10503422b5": {
+    "6a8a4bac51fe5c9d4e9d5fe5318fa521a75895a2a6f284646eacb904f9dfa801": {
       "source": {
         "path": "integ-quake-task.template.json",
         "packaging": "file"
@@ -9,7 +9,7 @@
       "destinations": {
         "current_account-current_region": {
           "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
-          "objectKey": "eaa04efe8af0ef7eb862a980dc168acccdfd5adaffc479169373cd10503422b5.json",
+          "objectKey": "6a8a4bac51fe5c9d4e9d5fe5318fa521a75895a2a6f284646eacb904f9dfa801.json",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
         }
       }
